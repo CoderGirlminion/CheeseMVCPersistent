@@ -9,8 +9,10 @@ namespace CheeseMVC.Controllers
 {
     public class CheeseController : Controller
     {
+        //references the CheeseDBContext
         private CheeseDbContext context;
 
+        //Constructor
         public CheeseController(CheeseDbContext dbContext)
         {
             context = dbContext;
@@ -19,17 +21,20 @@ namespace CheeseMVC.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
+            //DBset (Cheeses) turned into a list to view
             List<Cheese> cheeses = context.Cheeses.ToList();
 
             return View(cheeses);
         }
 
+        //displays the Add form
         public IActionResult Add()
         {
             AddCheeseViewModel addCheeseViewModel = new AddCheeseViewModel();
             return View(addCheeseViewModel);
         }
 
+        //processes the Add form that creates a new cheese object
         [HttpPost]
         public IActionResult Add(AddCheeseViewModel addCheeseViewModel)
         {
@@ -43,6 +48,7 @@ namespace CheeseMVC.Controllers
                     Type = addCheeseViewModel.Type
                 };
 
+                //adds new cheese to the DBset of Cheeses
                 context.Cheeses.Add(newCheese);
                 context.SaveChanges();
 
@@ -52,6 +58,7 @@ namespace CheeseMVC.Controllers
             return View(addCheeseViewModel);
         }
 
+        //renders the 'removal' form
         public IActionResult Remove()
         {
             ViewBag.title = "Remove Cheeses";
@@ -59,6 +66,7 @@ namespace CheeseMVC.Controllers
             return View();
         }
 
+        //removes a specific cheese from DB Context
         [HttpPost]
         public IActionResult Remove(int[] cheeseIds)
         {
