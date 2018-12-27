@@ -72,6 +72,7 @@ namespace CheeseMVC.Controllers
         {
             foreach (int cheeseId in cheeseIds)
             {
+                //Single method - identifies a specific cheese through ID
                 Cheese theCheese = context.Cheeses.Single(c => c.ID == cheeseId);
                 context.Cheeses.Remove(theCheese);
             }
