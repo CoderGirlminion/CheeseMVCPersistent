@@ -45,7 +45,7 @@ namespace CheeseMVC.Controllers
                 {
                     Name = addCheeseViewModel.Name,
                     Description = addCheeseViewModel.Description,
-                    Type = addCheeseViewModel.Type
+                    //Type = addCheeseViewModel.Type
                 };
 
                 //adds new cheese to the DBset of Cheeses

@@ -17,7 +17,7 @@ namespace CheeseMVC.ViewModels
         [Required(ErrorMessage = "You must give your cheese a description")]
         public string Description { get; set; }
 
-        public CheeseType Type { get; set; }
+        /*public CheeseType Type { get; set; }
 
         public List<SelectListItem> CheeseTypes { get; set; }
 
@@ -43,6 +43,6 @@ namespace CheeseMVC.ViewModels
                 Text = CheeseType.Fake.ToString()
             });
 
-        }
+        }*/
     }
 }
