@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CheeseMVC.ViewModels;
 using CheeseMVC.Data;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace CheeseMVC.Controllers
 {
@@ -21,8 +22,8 @@ namespace CheeseMVC.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            //DBset (Cheeses) turned into a list to view
-            List<Cheese> cheeses = context.Cheeses.ToList();
+            //DBset (Cheeses) is viewed as a list and EF includes the category of each listed cheese            
+            IList<Cheese> cheeses = context.Cheeses.Include(c => c.Category).ToList();
 
             return View(cheeses);
         }
@@ -30,7 +31,9 @@ namespace CheeseMVC.Controllers
         //displays the Add form
         public IActionResult Add()
         {
-            AddCheeseViewModel addCheeseViewModel = new AddCheeseViewModel();
+            //DBset (categories) is viewed as a list
+            AddCheeseViewModel addCheeseViewModel = 
+                new AddCheeseViewModel(context.Categories.ToList());
             return View(addCheeseViewModel);
         }
 
@@ -40,12 +43,16 @@ namespace CheeseMVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                //retrieves 'a' CheeseCategory object with matching categoryID
+                CheeseCategory newCheeseCategory =
+                    context.Categories.Single(c => c.ID == addCheeseViewModel.CategoryID);
+
                 // Add the new cheese to my existing cheeses
                 Cheese newCheese = new Cheese
                 {
                     Name = addCheeseViewModel.Name,
                     Description = addCheeseViewModel.Description,
-                    //Type = addCheeseViewModel.Type
+                    Category = newCheeseCategory
                 };
 
                 //adds new cheese to the DBset of Cheeses

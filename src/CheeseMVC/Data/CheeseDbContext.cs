@@ -5,7 +5,7 @@ namespace CheeseMVC.Data
 {
     public class CheeseDbContext : DbContext
     {
-        //Cheeses and Categories are the name within the database
+        //Cheeses and Categories are the database names
         //Database set (EF) properties
         public DbSet<Cheese> Cheeses { get; set; }
         public DbSet<CheeseCategory> Categories { get; set; }

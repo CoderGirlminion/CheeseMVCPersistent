@@ -17,6 +17,21 @@ namespace CheeseMVC.ViewModels
         [Required(ErrorMessage = "You must give your cheese a description")]
         public string Description { get; set; }
 
+        [Required]
+        [Display(Name = "Category")]
+        public int CategoryID { get; set; }
+
+        public List<SelectListItem> Categories { get; set; }
+
+        //references the list of categories
+        public AddCheeseViewModel(IEnumerable<CheeseCategory> categories){}
+
+        //default constructor - used for model binding
+        public AddCheeseViewModel() { }
+
+
+
+
         /*public CheeseType Type { get; set; }
 
         public List<SelectListItem> CheeseTypes { get; set; }
